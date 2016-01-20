@@ -9,7 +9,7 @@
 
 JC = javac
 
-P6.class: Compiler.java parser.class Yylex.class ASTnode.class
+Compiler.class: Compiler.java parser.class Yylex.class ASTnode.class
 	$(JC) -g Compiler.java
 
 parser.class: parser.java ASTnode.class Yylex.class ErrMsg.class
