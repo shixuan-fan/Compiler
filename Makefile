@@ -56,7 +56,7 @@ Codegen.class: Codegen.java
 
 ##test
 test:
-	java   Compiler.java test.cf test.s
+	java   Compiler test.cf test.s
 
 ###
 # clean
