@@ -1,0 +1,112 @@
+/**********************************************************************
+ Grammar for C Flat programs
+ **********************************************************************/
+program         ::= declList
+                ;
+
+declList        ::= declList decl
+                | /* epsilon */
+                ;
+
+decl            ::= varDecl
+                | fnDecl
+                | structDecl     // struct definitions only at top level
+                ;
+
+varDeclList     ::= varDeclList varDecl
+                | /* epsilon */
+                ;
+
+varDecl         ::= type id SEMICOLON
+                | STRUCT id id SEMICOLON
+                ;
+
+fnDecl          ::= type id formals fnBody
+                ;
+                
+structDecl      ::= STRUCT id LCURLY structBody RCURLY SEMICOLON
+                ;
+                
+structBody      ::= structBody varDecl
+                | varDecl
+                ;
+                
+formals         ::= LPAREN RPAREN
+                | LPAREN formalsList RPAREN
+                ;
+
+formalsList     ::= formalDecl
+                | formalDecl COMMA formalsList
+                ;
+
+formalDecl      ::= type id        // note: no struct parameters
+                ;
+
+fnBody          ::= LCURLY varDeclList stmtList RCURLY
+                ;
+
+stmtList        ::= stmtList stmt
+                | /* epsilon */
+                ;
+
+stmt            ::= assignExp SEMICOLON
+                | loc PLUSPLUS SEMICOLON
+                | loc MINUSMINUS SEMICOLON
+                | CIN READ loc SEMICOLON
+                | COUT WRITE exp SEMICOLON
+                | IF LPAREN exp RPAREN LCURLY varDeclList stmtList RCURLY
+                | IF LPAREN exp RPAREN LCURLY varDeclList stmtList RCURLY ELSE LCURLY varDeclList stmtList RCURLY
+                | WHILE LPAREN exp RPAREN LCURLY varDeclList stmtList RCURLY
+                | RETURN exp SEMICOLON
+                | RETURN SEMICOLON
+                | fncall SEMICOLON
+                ;
+
+assignExp       ::= loc ASSIGN exp
+                ;
+                
+exp             ::= assignExp
+                | exp PLUS exp
+                | exp MINUS exp
+                | exp TIMES exp
+                | exp DIVIDE exp
+                | NOT exp
+                | exp AND exp
+                | exp OR exp
+                | exp EQUALS exp
+                | exp NOTEQUALS exp
+                | exp LESS exp
+                | exp GREATER exp
+                | exp LESSEQ exp
+                | exp GREATEREQ exp
+                | MINUS term
+                | term
+                ;
+
+term            ::= loc
+                | INTLITERAL
+                | STRINGLITERAL
+                | TRUE
+                | FALSE
+                | LPAREN exp RPAREN
+                | fncall
+                ;
+
+fncall          ::=  id LPAREN RPAREN   // fn call with no args
+                | id LPAREN actualList RPAREN  // with args
+                ;
+
+actualList      ::= exp
+                | actualList COMMA exp
+                ;
+
+type            ::= INT
+                | BOOL
+                | VOID
+                ;
+
+loc             ::= id
+                | loc DOT id
+
+id              ::= ID
+                ;
