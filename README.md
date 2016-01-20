@@ -6,7 +6,7 @@ A compiler for a simple C style language
 2. To run the program, you should first set up the required environment (java, JLex and javaCUP). Then simply type "make" under the same folder in the terminal, and the program should be compiled automatically. After compilation, you could create a file "test.cf" containing the input codes, and the MIPS code will be generated in "test.s", given no grammar error and semantic error. The grammar for this language could be found in CFlat.grammar, which supports basic operation on integers, booleans and struct objects.
 
 3. The whole program contains the following files:
-  a) ast.java: This file contains the class definition for the AST structure, the name analysis method, the type 		              check method and the code generation method
+  a) ast.java: This file contains the class definition for the AST structure, the name analysis method, the type 		              check method and the code generation method\n
   b) CFlat.cup: A javaCUP specification of this language, which could generate the parser and build up the syntax tree according to the given grammar.
   c) CFlat.jlex: A JLex specification of this language, which could generate the scanner and create the tokens for the parser.
   d) Codegen.java: A helper class for generating the MIPS code.
