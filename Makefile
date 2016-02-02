@@ -1,7 +1,7 @@
 ###
 # This Makefile can be used to make a parser for the CFlat language
-# (parser.class) and to make a program (P5.class) that tests the parser and
-# the unparse methods in ast.java.
+# (parser.class) and to make a program (compiler.class) that generates
+# MIPS codes
 #
 # make clean removes all generated files.
 #
